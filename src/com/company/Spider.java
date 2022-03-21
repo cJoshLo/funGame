@@ -1,9 +1,16 @@
 package com.company;
 
-public class spider implements Monster{
+public class Spider implements Monster{
+    private String name = "Large Spider";
     private double attackStrength = 33;
     private double defenseStrength = 15;
     private double totalHealth = 100;
+
+    public Spider(double attackStrength, double defenseStrength, double totalHealth) {
+        this.attackStrength = attackStrength;
+        this.defenseStrength = defenseStrength;
+        this.totalHealth = totalHealth;
+    }
 
     @Override
     public double attack(double userDefense) {
@@ -23,5 +30,11 @@ public class spider implements Monster{
         }
     }
 
+    public String getName(){
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 }
