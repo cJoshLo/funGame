@@ -1,9 +1,9 @@
 package com.company;
 
 public interface Character {
-    public String name;
-    public Item[] items; //an array of all the items the character has
-    public double attackPower();
-    public double defensePower();
+    String name = null;
+    Item[] items = new Item[0]; //an array of all the items the character has
+    double attackPower = 0;
+    double defensePower = 0;
 
 }
