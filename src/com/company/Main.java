@@ -4,27 +4,13 @@ package com.company;
 import java.util.Scanner;
 
 import static com.company.Brawl.fight;
+import static com.company.GameFunctions.*;
 
 public class Main {
 
-    private static boolean scanCheck(int num, int topBound, int bottomBound){
-        if(num > bottomBound && num < topBound){
-            return true;
-        }else{
-            return false;
-        }
-    }
 
-    private static void instructions(){
-        System.out.println("You can check your inventory by typing 'items' you can move by typing 'left' ,'right', or 'back'.");
-        System.out.println("You can equip an item by typing 'equip' then pressing enter, then type the name of the item and press enter again.");
-        System.out.println("You can end the game by typing 'quit' or beating the game.");
-        System.out.println("You can always bring these instructions back by typing 'instructions'.");
-        System.out.println("");
-        System.out.println("");
-    }
 
-    private static String checkAction(Room currentRoom, String action, Soldier soldier) {
+    private static String checkAction(Room currentRoom, String action, Character soldier) {
         //System.out.println("Your action is " + action);
         if (action.equals("left") || action.equals("right") || action.equals("back")) {
             if (currentRoom.left != null && action.equals("left")) {
@@ -42,7 +28,10 @@ public class Main {
             }
         } else if (action.equals("items")) {
             soldier.checkItems();
-            System.out.println(soldier.getEquippedItem().getName() + " is in your hand.");
+            Item check = soldier.getEquippedItem();
+            if(check != null) {
+                System.out.println(soldier.getEquippedItem().getName() + " is in your hand.");
+            }
             return "null";
         } else if (action.equals("instructions")) {
             instructions();
@@ -66,63 +55,50 @@ public class Main {
 
 
     public static void main(String[] args) {
-
-
-        String[] characters = new String[1];
-        characters[0] = "soldier";
+        //LOAD GAME
         //create items
-	    Item twig = new Item(5, 1, "twig");
-        Item sword = new Item(10, 5, "sword");
+        Item twig = new Item(5, 1, "twig");
+        Item potionD = new Item(0, 5, "Defense Potion");
         Item largeAxe = new Item(10, 2, "Large axe");
         //create monsters
         Spider spider = new Spider(5,2,5);
         //create rooms
         Room start = new Room(null,null);
         Room swordRoom = new Room(null,twig);
-        Room spiderMonster = new Room(spider, sword);
+        Room spiderMonster = new Room(spider, potionD);
         //link rooms with a tree structure
         start.left = swordRoom;
         start.right = spiderMonster;
         start.previous = null;
         swordRoom.previous = start;
         spiderMonster.previous = start;
+        //-----------------------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------------------
 
-        System.out.println("Welcome to the game, first select a name");
-        Scanner scan = new Scanner(System.in);  // Create a Scanner object
-        String userName = scan.nextLine();  // Read user input
-        System.out.println("Great to meet you " + userName);
-        boolean check = false;
-        while(!check) {
-            System.out.println("Please select a class");
-            for(int i = 0; i < characters.length; i++){
-                System.out.println((i+1) + ": " + characters[i]);
-            }
-            int characterType = scan.nextInt();
-            scan.nextLine();
-            check = scanCheck(characterType, characters.length+1,0);
-        }
 
+        //Generating the character role
+        Character character = selectRole(); //create the character with correct class
+        Room current = start; // create a pointer to the current class the character is in
 
         System.out.println("Great choice");
-        Soldier soldier = new Soldier(userName); //will need to figure out how to pick the correct class when there are more
-
         instructions();
 
         System.out.println("You are in the main room");
-        System.out.println("The room you are in is empty but there are two doors one to your right and on to your left");
-        Room current = start;
+        System.out.println("The room you are in is empty but there are two doors one to your right and one to your left");
+        //---------------------------------------------------------------------------------------------------------------------------------
 
 
 
-
+        //MAIN GAME LOOP
+        Scanner scan = new Scanner(System.in);
         boolean endGame = false;
         while(!endGame) {
             if(current.getMonster() != null){
                 System.out.println("Suddenly a " + current.getMonster().getName() + " jumps out and prepares for a fight.");
-                boolean won = fight(current.getMonster(), soldier);
+                boolean won = fight(current.getMonster(), character);
                 if(won){
                     System.out.println("You killed the monster, and found a " + current.getItem().getName() + ". The item has been added to your inventory");
-                    soldier.setItems(current.removeItem());
+                    character.setItems(current.removeItem());
                     current.removeMonster();
                 }else{
                     current = start;
@@ -130,18 +106,17 @@ public class Main {
                 }
             }else if (current.getItem() != null) {
                 System.out.println("You found a " + current.getItem().getName() + ". The item has been added to your inventory");
-                soldier.setItems(current.removeItem());
+                character.setItems(current.removeItem());
             }
             System.out.println("What would you like to do?");
             String action = scan.nextLine();
             action.toLowerCase();
             if (action.equals("quit")) {
                 endGame = true;
-                check = true;
                 System.out.println("You have ended the game Goodbye");
                 break;
             }
-            String checked = checkAction(current, action, soldier);
+            String checked = checkAction(current, action, character);
             if (checked.equals("left")) {
                 current = current.left;
             } else if (checked.equals("right")) {

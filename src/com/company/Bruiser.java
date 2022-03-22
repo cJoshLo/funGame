@@ -3,17 +3,17 @@ package com.company;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Soldier implements Character{
+public class Bruiser implements Character {
     private String name = "John";
     private List<Item> items = new ArrayList<Item>();
 
     private Item equippedItem = null;
-    private double attackPower = 4;
+    private double attackPower = 2;
     private double defensePower = 1;
-    private double health = 10;
+    private double health = 20;
 
 
-    public Soldier(String name) {
+    public Bruiser(String name) {
         this.name = name;
     }
 
@@ -21,21 +21,21 @@ public class Soldier implements Character{
         return name;
     }
 
-    public void checkItems(){
+    public void checkItems() {
         System.out.print("You have ");
-        if(this.items.isEmpty()){
+        if (this.items.isEmpty()) {
             System.out.println("no items");
             return;
         }
         System.out.println("");
-        for(int i = 0; i < this.items.size(); i++){
+        for (int i = 0; i < this.items.size(); i++) {
             System.out.println(items.get(i).getName());
         }
     }
 
     public Item getItems(String name) {
-        for(int i = 0; i < this.items.size(); i++){
-            if(this.items.get(i).getName().equals(name)){
+        for (int i = 0; i < this.items.size(); i++) {
+            if (this.items.get(i).getName().equals(name)) {
                 return this.items.get(i);
             }
         }
@@ -70,6 +70,13 @@ public class Soldier implements Character{
         this.equippedItem = equippedItem;
     }
 
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
 
     public double getHealth() {
         return health;

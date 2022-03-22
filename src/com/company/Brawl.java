@@ -3,7 +3,7 @@ package com.company;
 import java.util.Scanner;
 
 public class Brawl {
-    public static boolean fight(Monster monster, Soldier soldier){
+    public static boolean fight(Monster monster, Character soldier){
         Item hold = soldier.getEquippedItem();
         double attackStats = currentStats(hold, soldier);
         double defenseStats = currentDStats(hold, soldier);
@@ -47,12 +47,15 @@ public class Brawl {
             System.out.println("Would you like to use any items?");
             Scanner scan = new Scanner(System.in);
             String item = scan.nextLine();
+            if(item.equals("items") || item.equals("equip")){
+                
+            }
         }
         return false;
 
     }
 
-    private static double currentStats(Item hold, Soldier soldier){
+    private static double currentStats(Item hold, Character soldier){
         if(hold == null){
             return soldier.getAttackPower();
         }else{
@@ -60,7 +63,7 @@ public class Brawl {
             return finalStats;
         }
     }
-    private static double currentDStats(Item hold, Soldier soldier){
+    private static double currentDStats(Item hold, Character soldier){
         if(hold == null){
             return soldier.getDefensePower();
         }else{

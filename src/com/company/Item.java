@@ -15,17 +15,11 @@ public class Item {
         return additionalAttack;
     }
 
-    public void setAdditionalAttack(double additionalAttack) {
-        this.additionalAttack = additionalAttack;
-    }
 
     public double getAdditionalDefense() {
         return additionalDefense;
     }
 
-    public void setAdditionalDefense(double additionalDefense) {
-        this.additionalDefense = additionalDefense;
-    }
 
     public String getName() {
         return name;
