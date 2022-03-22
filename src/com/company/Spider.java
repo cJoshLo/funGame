@@ -2,9 +2,9 @@ package com.company;
 
 public class Spider implements Monster{
     private String name = "Large Spider";
-    private double attackStrength = 33;
-    private double defenseStrength = 15;
-    private double totalHealth = 100;
+    private double attackStrength = 5;
+    private double defenseStrength = 1;
+    private double totalHealth = 10;
 
     public Spider(double attackStrength, double defenseStrength, double totalHealth) {
         this.attackStrength = attackStrength;
@@ -28,6 +28,30 @@ public class Spider implements Monster{
         }else{
             return this.totalHealth;
         }
+    }
+
+    public double getAttackStrength() {
+        return attackStrength;
+    }
+
+    public void setAttackStrength(double attackStrength) {
+        this.attackStrength = attackStrength;
+    }
+
+    public double getDefenseStrength() {
+        return defenseStrength;
+    }
+
+    public void setDefenseStrength(double defenseStrength) {
+        this.defenseStrength = defenseStrength;
+    }
+
+    public double getTotalHealth() {
+        return totalHealth;
+    }
+
+    public void setTotalHealth(double totalHealth) {
+        this.totalHealth = totalHealth;
     }
 
     public String getName(){

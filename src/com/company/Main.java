@@ -1,5 +1,6 @@
 package com.company;
 
+
 import java.util.Scanner;
 
 import static com.company.Brawl.fight;
@@ -15,33 +16,47 @@ public class Main {
     }
 
     private static void instructions(){
-        System.out.println("You can check your inventory by typing 'items' you can move by typing 'left' ,'right', or 'back'");
-        System.out.println("You can equip an item by typing 'equip ' followed by the item name");
-        System.out.println("You can end the game by typing 'quit' or beating the game");
-        System.out.println("You can always bring these instructions back by typing 'instructions'");
+        System.out.println("You can check your inventory by typing 'items' you can move by typing 'left' ,'right', or 'back'.");
+        System.out.println("You can equip an item by typing 'equip' then pressing enter, then type the name of the item and press enter again.");
+        System.out.println("You can end the game by typing 'quit' or beating the game.");
+        System.out.println("You can always bring these instructions back by typing 'instructions'.");
+        System.out.println("");
+        System.out.println("");
     }
 
-    private static String checkAction(Room currentRoom, String action, Soldier soldier){
+    private static String checkAction(Room currentRoom, String action, Soldier soldier) {
         //System.out.println("Your action is " + action);
-        if(action.equals("left") || action.equals("right") || action.equals("back")) {
+        if (action.equals("left") || action.equals("right") || action.equals("back")) {
             if (currentRoom.left != null && action.equals("left")) {
                 System.out.println("You went through the left door");
                 return "left";
             } else if (currentRoom.right != null && action.equals("right")) {
                 System.out.println("You walk through the right door");
                 return "right";
-            }else if(currentRoom.previous != null && action.equals("back")){
+            } else if (currentRoom.previous != null && action.equals("back")) {
                 System.out.println("You went back to the previous room");
                 return "back";
-            }else{
+            } else {
                 System.out.println("Room does now have a door on the " + action);
                 return "null";
             }
-        }else if(action.equals("items")){
+        } else if (action.equals("items")) {
             soldier.checkItems();
+            System.out.println(soldier.getEquippedItem().getName() + " is in your hand.");
             return "null";
-        }else if(action.equals("instructions")){
+        } else if (action.equals("instructions")) {
             instructions();
+            return "null";
+        }else if(action.equals("equip")){
+            Scanner scan = new Scanner(System.in);
+            String item = scan.nextLine();
+            Item weapon = soldier.getItems(item);
+            if(weapon != null){
+                soldier.setEquippedItem(weapon);
+                System.out.println(weapon.getName() + " has been equiped");
+            }else{
+                System.out.println("You do no have that item");
+            }
             return "null";
         }else{
             System.out.println("invalid input");
@@ -56,15 +71,15 @@ public class Main {
         String[] characters = new String[1];
         characters[0] = "soldier";
         //create items
-	    Item sword = new Item(5, 1, "sword");
-        Item shield = new Item(1, 5, "shield");
+	    Item twig = new Item(5, 1, "twig");
+        Item sword = new Item(10, 5, "sword");
         Item largeAxe = new Item(10, 2, "Large axe");
         //create monsters
         Spider spider = new Spider(5,2,5);
         //create rooms
         Room start = new Room(null,null);
-        Room swordRoom = new Room(null,sword);
-        Room spiderMonster = new Room(spider, shield);
+        Room swordRoom = new Room(null,twig);
+        Room spiderMonster = new Room(spider, sword);
         //link rooms with a tree structure
         start.left = swordRoom;
         start.right = spiderMonster;
@@ -92,8 +107,7 @@ public class Main {
         Soldier soldier = new Soldier(userName); //will need to figure out how to pick the correct class when there are more
 
         instructions();
-        System.out.println("");
-        System.out.println("");
+
         System.out.println("You are in the main room");
         System.out.println("The room you are in is empty but there are two doors one to your right and on to your left");
         Room current = start;

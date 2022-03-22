@@ -7,8 +7,11 @@ public class Soldier implements Character{
     private String name = "John";
     private List<Item> items = new ArrayList<Item>();
 
+    private Item equippedItem = null;
     private double attackPower = 3;
     private double defensePower = 1;
+    private double health = 10;
+
 
     public Soldier(String name) {
         this.name = name;
@@ -57,5 +60,29 @@ public class Soldier implements Character{
 
     public void setDefensePower(double defensePower) {
         this.defensePower = defensePower;
+    }
+
+    public Item getEquippedItem() {
+        return equippedItem;
+    }
+
+    public void setEquippedItem(Item equippedItem) {
+        this.equippedItem = equippedItem;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
+    public double getHealth() {
+        return health;
+    }
+
+    public void setHealth(double health) {
+        this.health = health;
     }
 }
