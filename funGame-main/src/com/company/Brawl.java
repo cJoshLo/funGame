@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 public class Brawl {
     public static boolean fight(Monster monster, Character soldier){
+        //----Setting up all the stats for the character-------
 
-        //----Setting up all the stats for the character----hello---
         Item hold = soldier.getEquippedItem();
         double attackStats = currentStats(hold, soldier);
         double defenseStats = currentDStats(hold, soldier);
@@ -14,9 +14,9 @@ public class Brawl {
         System.out.println("");
         double holdHealth = monster.getTotalHealth();
 
-        //-----Start of the fight loop--------test-----
+        //-----Start of the fight loop------does this override-----
         while(soldier.getHealth() > 0){
-
+//adding
             //Character Strike
             double attack = (int)(Math.random() * attackStats);
             if(attack < monster.getDefenseStrength()){
