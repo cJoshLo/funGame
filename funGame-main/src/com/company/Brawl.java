@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Brawl {
     public static boolean fight(Monster monster, Character soldier){
 
-        //----Setting up all the stats for the character-------
+        //----Setting up all the stats for the character----iiiii---
         Item hold = soldier.getEquippedItem();
         double attackStats = currentStats(hold, soldier);
         double defenseStats = currentDStats(hold, soldier);
