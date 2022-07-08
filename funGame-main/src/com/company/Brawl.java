@@ -16,7 +16,7 @@ public class Brawl {
 
         //-----Start of the fight loop------does this override-----
         while(soldier.getHealth() > 0){
-
+//adding
             //Character Strike
             double attack = (int)(Math.random() * attackStats);
             if(attack < monster.getDefenseStrength()){
