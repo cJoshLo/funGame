@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 public class Brawl {
     public static boolean fight(Monster monster, Character soldier){
-
         //----Setting up all the stats for the character-------
+
         Item hold = soldier.getEquippedItem();
         double attackStats = currentStats(hold, soldier);
         double defenseStats = currentDStats(hold, soldier);
