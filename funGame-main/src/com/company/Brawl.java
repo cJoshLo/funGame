@@ -14,7 +14,7 @@ public class Brawl {
         System.out.println("");
         double holdHealth = monster.getTotalHealth();
 
-        //-----Start of the fight loop-----------
+        //-----Start of the fight loop--------test-----
         while(soldier.getHealth() > 0){
 
             //Character Strike
